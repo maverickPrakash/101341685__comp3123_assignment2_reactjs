@@ -13,17 +13,7 @@ const EmployeeModel = mongoose.Schema({
     email:{
         type:String,
         unique:true,
-        maxlength: 50
-    },
-
-    gender:{
-        type:String,
-        maxlength: 25,
-        enum:["Male","Female",")ther"]
-    },
-    salary:{
-        type:Number,
-        require:true
+        maxlength: 200
     }
         
 })

@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mongo_db:
+    container_name: db_container
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongo_db:/data/db
+    ports:
+      - "27017:27017"
+
+  node_app:
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    ports:
+      - "8890:8890"
+    depends_on:
+      - mongo_db
+  react_app:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+
+
+volumes:
+  mongo_db: {}

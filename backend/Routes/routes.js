@@ -34,9 +34,7 @@ routes.post("/user/login", async(req,res)=>{
     });
     }
 
-    // Check the password (you should use bcrypt to hash and compare passwords)
     if (user.password === password) {
-      // Passwords match, you can create a session or send a token here
       return res.status(200).json(
         {
             status: true,
@@ -108,15 +106,25 @@ routes.route("/emp/employees")
            
          })
          //update employee
-         .put(async (req,res)=>{
+         .put(async (req, res) => {
             try {
-                await Employee.findByIdAndUpdate(req.params.id,{...req.body})
-                res.status(200).send("Data Updated Successfully")
-                
+               const updatedEmployee = await Employee.findByIdAndUpdate(
+                  req.params.id,
+                  { ...req.body },
+                  { new: true } 
+               );
+         
+               if (!updatedEmployee) {
+                  return res.status(404).send("Employee not found");
+               }
+         
+               res.status(200).send("Data Updated Successfully");
             } catch (error) {
-                res.status(500).send(error)
+               console.error(error);
+               res.status(500).send(error.message || "Internal Server Error");
             }
-         })
+         });
+         
 
     
 module.exports = routes;
