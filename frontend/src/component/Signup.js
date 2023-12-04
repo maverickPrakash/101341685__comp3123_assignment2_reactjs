@@ -10,21 +10,17 @@ const Signup = ({ onSignup }) => {
   const [signupSuccess, setSignupSuccess] = useState(false);
 
   useEffect(() => {
-    // Check if the user is already logged in
     const token = localStorage.getItem('token');
     if (token) {
-      // Redirect to the dashboard if the user is logged in
       navigate('/dashboard');
     }
   }, [navigate]);
 
   const handleSignup = async () => {
     try {
-      // Add your signup logic here using axios or any other method
 
-      // Assuming signup is successful
       setSignupSuccess(true);
-      navigate('/login'); // Redirect to login after successful signup
+      navigate('/login'); 
     } catch (error) {
       setErrorMessage('Signup failed. Please try again.');
       console.error('Signup failed:', error);
